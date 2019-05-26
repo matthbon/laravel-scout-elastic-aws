@@ -26,7 +26,20 @@ class ElasticsearchProvider extends ServiceProvider
         switch ($provider) {
             case 'aws':
                 app(EngineManager::class)->extend('elasticsearch', function($app) {
+                    // Default credentials
                     $provider = CredentialProvider::defaultProvider();
+
+                    // Set credentials
+                    if (config('laravel-scout-elastic.credentials.key')) {
+                        $provider = CredentialProvider::fromCredentials(
+                            new Credentials(
+                                config('laravel-scout-elastic.credentials.key'),
+                                config('laravel-scout-elastic.credentials.secret'),
+                                config('laravel-scout-elastic.credentials.token')
+                            )
+                        );
+                    }
+
                     $handler = new ElasticsearchPhpHandler(config('laravel-scout-elastic.region', 'us-west-2'), $provider);
                     return new ElasticsearchEngine(ElasticBuilder::create()
                         ->setHandler($handler)

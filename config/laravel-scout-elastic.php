@@ -31,4 +31,21 @@ return [
 
     'region' => env('AWS_REGION', 'us-west-2'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Credentials
+    |--------------------------------------------------------------------------
+    |
+    | Ignored if provider is elasticsearch
+    |
+    | Put your AWS IAM credentials in here.
+    |
+    */
+
+    'credentials' => [
+        'key' => env('AWS_ACCESS_KEY'),
+        'secret' => env('AWS_ACCESS_SECRET'),
+        'token' => env('AWS_ACCESS_TOKEN'),
+    ],
+
 ];
