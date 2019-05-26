@@ -51,6 +51,14 @@ One thing the AWS client needs is the Region. If you don't already have it in yo
 AWS_REGION=us-west-2
 ```
 
+For using IAM credentials, add those to .env.
+
+```php
+AWS_ACCESS_KEY=
+AWS_ACCESS_SECRET=
+AWS_ACCESS_TOKEN=
+```
+
 ## Testing with Scout
 
 If your CI environment does not have access to a working Elasticsearch instance, any indexed Models will cause it to error. To solve this, add the following to your phpunit.xml. The single quotes wrapping the double quotes are the tricky part there.
