@@ -17,7 +17,6 @@ class ElasticsearchProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../commands/CreateIndex.php' => app_path('Console/Commands/CreateIndex.php'),
             __DIR__ . '/../config/laravel-scout-elastic.php' => config_path('laravel-scout-elastic.php'),
         ]);
 
