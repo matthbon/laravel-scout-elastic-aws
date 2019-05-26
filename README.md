@@ -16,7 +16,7 @@ This package makes is the [Elasticsearch](https://www.elastic.co/products/elasti
 You can install the package via composer:
 
 ``` bash
-composer require tamayo/laravel-scout-elastic
+composer require lotuashvili/laravel-scout-elastic-aws
 ```
 
 You must add the Scout service provider and the package service provider in your app.php config:
@@ -87,7 +87,7 @@ you'll need to update the main scout configuration
 and this package's configuration
 
 ```php
-// config/laravel-scout-elastic
+// config/laravel-scout-elastic.php
 // set this if you don't want to include it in your .env
     'provider' => env('ELASTICSEARCH_PROVIDER', 'elasticsearch'),
 ...
@@ -100,7 +100,7 @@ and enable the artisan job:
 // App/Console/Kernel.php
 protected $commands = [
     ...
-    \App\Console\Commands\CreateIndex::class
+    \ScoutEngines\Elasticsearch\Commands\CreateIndex::class,
     ...
 ],
 ```
@@ -119,6 +119,7 @@ php artisan scout:create-index
 Now you can use Laravel Scout as described in the [official documentation](https://laravel.com/docs/5.3/scout)
 ## Credits
 
+- [Levan Lotuashvili](https://github.com/lotuashvili)
 - [Erick Tamayo](https://github.com/ericktamayo)
 - [All Contributors](../../contributors)
 
