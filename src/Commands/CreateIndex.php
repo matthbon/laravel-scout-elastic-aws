@@ -2,11 +2,8 @@
 
 namespace ScoutEngines\Elasticsearch\Commands;
 
-use Aws\Credentials\CredentialProvider;
-use Aws\Credentials\Credentials;
 use Illuminate\Console\Command;
-use Aws\ElasticsearchService\ElasticsearchPhpHandler;
-use Elasticsearch\ClientBuilder;
+use ScoutEngines\Elasticsearch\Elasticsearch;
 
 class CreateIndex extends Command
 {
@@ -41,40 +38,7 @@ class CreateIndex extends Command
      */
     public function handle()
     {
-        $provider = config('laravel-scout-elastic.provider', 'elastic');
-
-        switch ($provider) {
-            case 'aws':
-                // Default credentials
-                $provider = CredentialProvider::defaultProvider();
-
-                // Set credentials
-                if (config('laravel-scout-elastic.credentials.key')) {
-                    $provider = CredentialProvider::fromCredentials(
-                        new Credentials(
-                            config('laravel-scout-elastic.credentials.key'),
-                            config('laravel-scout-elastic.credentials.secret'),
-                            config('laravel-scout-elastic.credentials.token')
-                        )
-                    );
-                }
-
-                // Create a handler (with the region of your Amazon Elasticsearch Service domain)
-                $handler = new ElasticsearchPhpHandler(config('laravel-scout-elastic.region', 'us-west-2'), $provider);
-
-                // Use this handler to create an Elasticsearch-PHP client
-                $client = ClientBuilder::create()
-                            ->setHandler($handler)
-                            ->setHosts(config('scout.elasticsearch.hosts'))
-                            ->build();
-                break;
-            case 'elastic':
-            default:
-                $client = ClientBuilder::create()
-                    ->setHosts(config('scout.elasticsearch.hosts'))
-                    ->build();
-                break;
-        }
+        $client = Elasticsearch::client();
         
         if(!$client->indices()->exists(['index' => config('scout.elasticsearch.index')])) {
             $params = [
