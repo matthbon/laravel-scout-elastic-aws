@@ -24,7 +24,7 @@ class ElasticsearchProvider extends ServiceProvider
 
         switch ($provider) {
             case 'aws':
-                app(EngineManager::class)->extend('elasticsearch', function($app) {
+                app(EngineManager::class)->extend('elasticsearch', function ($app) {
                     // Default credentials
                     $provider = CredentialProvider::defaultProvider();
 
@@ -43,18 +43,16 @@ class ElasticsearchProvider extends ServiceProvider
                     return new ElasticsearchEngine(ElasticBuilder::create()
                         ->setHandler($handler)
                         ->setHosts(config('scout.elasticsearch.hosts'))
-                        ->build(),
-                        config('scout.elasticsearch.index')
+                        ->build()
                     );
                 });
                 break;
             case 'elastic':
             default:
-                app(EngineManager::class)->extend('elasticsearch', function($app) {
+                app(EngineManager::class)->extend('elasticsearch', function ($app) {
                     return new ElasticsearchEngine(ElasticBuilder::create()
                         ->setHosts(config('scout.elasticsearch.hosts'))
-                        ->build(),
-                        config('scout.elasticsearch.index')
+                        ->build()
                     );
                 });
                 break;
