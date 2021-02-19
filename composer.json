@@ -4,7 +4,7 @@
     "keywords": ["laravel", "scout", "elasticsearch", "elastic", "aws"],
     "require": {
         "php": "^7.3",
-        "laravel/scout": "^7.1",
+        "laravel/scout": "^8.0",
         "elasticsearch/elasticsearch": "7.9.*"
     },
     "require-dev": {
